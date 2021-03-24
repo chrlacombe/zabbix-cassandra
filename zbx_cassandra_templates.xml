@@ -1,0 +1,1627 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>4.4</version>
+    <date>2021-03-24T15:20:40Z</date>
+    <groups>
+        <group>
+            <name>Templates/Databases</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Cassandra</template>
+            <name>Cassandra</name>
+            <groups>
+                <group>
+                    <name>Templates/Databases</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Cassandra</name>
+                </application>
+                <application>
+                    <name>Cassandra: Cache</name>
+                </application>
+                <application>
+                    <name>Cassandra: Client</name>
+                </application>
+                <application>
+                    <name>Cassandra: ClientRequest</name>
+                </application>
+                <application>
+                    <name>Cassandra: ColumnFamily</name>
+                </application>
+                <application>
+                    <name>Cassandra: Compaction</name>
+                </application>
+                <application>
+                    <name>Cassandra: Connection</name>
+                </application>
+                <application>
+                    <name>Cassandra: CQL</name>
+                </application>
+                <application>
+                    <name>Cassandra: DroppedMessage</name>
+                </application>
+                <application>
+                    <name>Cassandra: FailureDetector</name>
+                </application>
+                <application>
+                    <name>Cassandra: GarbageCollector</name>
+                </application>
+                <application>
+                    <name>Cassandra: Keyspace</name>
+                </application>
+                <application>
+                    <name>Cassandra: Memory</name>
+                </application>
+                <application>
+                    <name>Cassandra: MemoryPool</name>
+                </application>
+                <application>
+                    <name>Cassandra: ReadRepair</name>
+                </application>
+                <application>
+                    <name>Cassandra: Storage</name>
+                </application>
+                <application>
+                    <name>Cassandra: Threading</name>
+                </application>
+                <application>
+                    <name>Cassandra: ThreadPools</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Cassandra: Port Listening 9042</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>net.tcp.listen[9042]</key>
+                    <delay>5m</delay>
+                    <applications>
+                        <application>
+                            <name>Cassandra</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}=0</expression>
+                            <name>Cassandra: Port 9042 is not listening</name>
+                            <priority>DISASTER</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Cassandra: Port Listening 10005</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>net.tcp.listen[10005]</key>
+                    <delay>5m</delay>
+                    <applications>
+                        <application>
+                            <name>Cassandra</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{last()}=0</expression>
+                            <name>Cassandra: Port 10005 is not listening</name>
+                            <priority>DISASTER</priority>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>Cassandra: CPU Utilization</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>proc.cpu.util[java,,,cassandra]</key>
+                    <delay>5m</delay>
+                    <value_type>FLOAT</value_type>
+                    <applications>
+                        <application>
+                            <name>Cassandra</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Cassandra: Memory usage (rss)</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>proc.mem[java,,,cassandra,rss]</key>
+                    <delay>5m</delay>
+                    <units>B</units>
+                    <applications>
+                        <application>
+                            <name>Cassandra</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Cassandra: Number of processes running</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>proc.num[java,,,cassandra]</key>
+                    <delay>5m</delay>
+                    <applications>
+                        <application>
+                            <name>Cassandra</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>Cassandra: Metaspace Init</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/java.lang:name=Metaspace,type=MemoryPool/Usage/init&quot;,,,^{.*}$]</key>
+                    <delay>5m</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>B</units>
+                    <applications>
+                        <application>
+                            <name>Cassandra: MemoryPool</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.value</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>Cassandra: Metaspace Max</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/java.lang:name=Metaspace,type=MemoryPool/Usage/max&quot;,,,^{.*}$]</key>
+                    <delay>5m</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>B</units>
+                    <applications>
+                        <application>
+                            <name>Cassandra: MemoryPool</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.value</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>Cassandra: Metaspace Used</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/java.lang:name=Metaspace,type=MemoryPool/Usage/used&quot;,,,^{.*}$]</key>
+                    <delay>5m</delay>
+                    <value_type>FLOAT</value_type>
+                    <units>B</units>
+                    <applications>
+                        <application>
+                            <name>Cassandra: MemoryPool</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.value</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>Cassandra: Threading Daemon</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/java.lang:type=Threading/DaemonThreadCount&quot;,,,^{.*}$]</key>
+                    <delay>5m</delay>
+                    <applications>
+                        <application>
+                            <name>Cassandra: Threading</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.value</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>Cassandra: Threading Peak</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/java.lang:type=Threading/PeakThreadCount&quot;,,,^{.*}$]</key>
+                    <delay>5m</delay>
+                    <applications>
+                        <application>
+                            <name>Cassandra: Threading</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.value</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>Cassandra: Threading ThreadCount</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/java.lang:type=Threading/ThreadCount&quot;,,,^{.*}$]</key>
+                    <delay>5m</delay>
+                    <applications>
+                        <application>
+                            <name>Cassandra: Threading</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.value</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>Cassandra: Client connectedNativeClients</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/org.apache.cassandra.metrics:type=Client,name=connectedNativeClients/Value&quot;,,,^{.*}$]</key>
+                    <applications>
+                        <application>
+                            <name>Cassandra: Client</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.value</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>Cassandra: Client connectedThriftClients</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/org.apache.cassandra.metrics:type=Client,name=connectedThriftClients/Value&quot;,,,^{.*}$]</key>
+                    <applications>
+                        <application>
+                            <name>Cassandra: Client</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.value</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>Cassandra: FailureDetector DownEndpointCount</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/org.apache.cassandra.net:type=FailureDetector/DownEndpointCount&quot;,,,^{.*}$]</key>
+                    <delay>5m</delay>
+                    <applications>
+                        <application>
+                            <name>Cassandra: FailureDetector</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.value</params>
+                        </step>
+                    </preprocessing>
+                </item>
+                <item>
+                    <name>Cassandra: FailureDetector UpEndpointCount</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/org.apache.cassandra.net:type=FailureDetector/UpEndpointCount&quot;,,,^{.*}$]</key>
+                    <delay>5m</delay>
+                    <applications>
+                        <application>
+                            <name>Cassandra: FailureDetector</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$.value</params>
+                        </step>
+                    </preprocessing>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Cassandra: GarbageCollector Discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/java.lang:type=GarbageCollector,*/CollectionTime&quot;,,,^{.*}$]</key>
+                    <delay>1h</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Cassandra: GarbageCollector {{#CASSANDRA_MBEAN_GARBAGECOLLECTOR}.regsub(&quot;name=(\w*)&quot;,&quot;\1&quot;)} CollectionCount</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_GARBAGECOLLECTOR}/CollectionCount&quot;,,,^{.*}$]</key>
+                            <delay>6m</delay>
+                            <history>1w</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: GarbageCollector</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cassandra: GarbageCollector {{#CASSANDRA_MBEAN_GARBAGECOLLECTOR}.regsub(&quot;name=(\w*)&quot;,&quot;\1&quot;)} CollectionTime</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_GARBAGECOLLECTOR}/CollectionTime&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <history>1w</history>
+                            <trends>90d</trends>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: GarbageCollector</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CASSANDRA_MBEAN_GARBAGECOLLECTOR}</lld_macro>
+                            <path>$.mbean</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>var output = [];
+var datas = JSON.parse(value);
+for(var k in datas.value) {
+   var obj = { mbean: k };
+   output.push(obj);
+}
+ 
+// Return JSON string
+return JSON.stringify(output);</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Cassandra: Memory Discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/java.lang:type=Memory,*&quot;,,,^{.*}$]</key>
+                    <delay>1h</delay>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_MEMORY}</macro>
+                                <value>MemoryUsage</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Cassandra: Memory {#CASSANDRA_MBEAN_MEMORY} Init</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/java.lang:type=Memory/{#CASSANDRA_MBEAN_MEMORY}/init&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: Memory</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cassandra: Memory {#CASSANDRA_MBEAN_MEMORY} Used</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/java.lang:type=Memory/{#CASSANDRA_MBEAN_MEMORY}/used&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: Memory</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CASSANDRA_MBEAN_MEMORY}</lld_macro>
+                            <path>$.mbean</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>var output = [];
+var datas = JSON.parse(value);
+for(var k in datas.value[&quot;java.lang:type=Memory&quot;]) {
+   var obj = { mbean: k };
+   output.push(obj);
+}
+ 
+// Return JSON string
+return JSON.stringify(output);</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Cassandra: Cache Count Discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/org.apache.cassandra.metrics:type=Cache,*/Count&quot;,,,^{.*}$]</key>
+                    <delay>1h</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Cassandra: Cache {{#CASSANDRA_MBEAN_CACHE}.regsub(&quot;name=(\w*),scope=(\w*)&quot;,&quot;\1 \2&quot;)} Count</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_CACHE}/Count&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: Cache</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CASSANDRA_MBEAN_CACHE}</lld_macro>
+                            <path>$.mbean</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>var output = [];
+var datas = JSON.parse(value);
+for(var k in datas.value) {
+   var obj = { mbean: k };
+   output.push(obj);
+}
+ 
+// Return JSON string
+return JSON.stringify(output);</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Cassandra: Cache Value Discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/org.apache.cassandra.metrics:type=Cache,*/Value&quot;,,,^{.*}$]</key>
+                    <delay>1h</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Cassandra: Cache {{#CASSANDRA_MBEAN_CACHE}.regsub(&quot;name=(\w*),scope=(\w*)&quot;,&quot;\1 \2&quot;)} Value</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_CACHE}/Value&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: Cache</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CASSANDRA_MBEAN_CACHE}</lld_macro>
+                            <path>$.mbean</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>var output = [];
+var datas = JSON.parse(value);
+for(var k in datas.value) {
+   var obj = { mbean: k };
+   output.push(obj);
+}
+ 
+// Return JSON string
+return JSON.stringify(output);</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Cassandra: ClientRequest Count Discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/org.apache.cassandra.metrics:type=ClientRequest,*/Count&quot;,,,^{.*}$]</key>
+                    <delay>1h</delay>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_CLIENTREQUEST}</macro>
+                                <value>scope=(Write|Read)</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Cassandra: ClientRequest {{#CASSANDRA_MBEAN_CLIENTREQUEST}.regsub(&quot;name=(\w*),scope=(\w*)&quot;,&quot;\1 \2&quot;)} Count</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_CLIENTREQUEST}/Count&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: ClientRequest</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CASSANDRA_MBEAN_CLIENTREQUEST}</lld_macro>
+                            <path>$.mbean</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>var output = [];
+var datas = JSON.parse(value);
+for(var k in datas.value) {
+   var obj = { mbean: k };
+   output.push(obj);
+}
+ 
+// Return JSON string
+return JSON.stringify(output);</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Cassandra: ClientRequest FifteenMinuteRate Discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/org.apache.cassandra.metrics:type=ClientRequest,*/FifteenMinuteRate&quot;,,,^{.*}$]</key>
+                    <delay>1h</delay>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_CLIENTREQUEST}</macro>
+                                <value>scope=(Write|Read)</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Cassandra: ClientRequest {{#CASSANDRA_MBEAN_CLIENTREQUEST}.regsub(&quot;name=(\w*),scope=(\w*)&quot;,&quot;\1 \2&quot;)} FifteenMinuteRate</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_CLIENTREQUEST}/FifteenMinuteRate&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: ClientRequest</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CASSANDRA_MBEAN_CLIENTREQUEST}</lld_macro>
+                            <path>$.mbean</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>var output = [];
+var datas = JSON.parse(value);
+for(var k in datas.value) {
+   var obj = { mbean: k };
+   output.push(obj);
+}
+ 
+// Return JSON string
+return JSON.stringify(output);</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Cassandra: ClientRequest Mean Discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/org.apache.cassandra.metrics:type=ClientRequest,*/Mean&quot;,,,^{.*}$]</key>
+                    <delay>1h</delay>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_CLIENTREQUEST}</macro>
+                                <value>scope=(Write|Read)</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Cassandra: ClientRequest {{#CASSANDRA_MBEAN_CLIENTREQUEST}.regsub(&quot;name=(\w*),scope=(\w*)&quot;,&quot;\1 \2&quot;)} 50thPercentile</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_CLIENTREQUEST}/50thPercentile&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: ClientRequest</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cassandra: ClientRequest {{#CASSANDRA_MBEAN_CLIENTREQUEST}.regsub(&quot;name=(\w*),scope=(\w*)&quot;,&quot;\1 \2&quot;)} 75thPercentile</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_CLIENTREQUEST}/75thPercentile&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: ClientRequest</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cassandra: ClientRequest {{#CASSANDRA_MBEAN_CLIENTREQUEST}.regsub(&quot;name=(\w*),scope=(\w*)&quot;,&quot;\1 \2&quot;)} 95thPercentile</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_CLIENTREQUEST}/95thPercentile&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: ClientRequest</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cassandra: ClientRequest {{#CASSANDRA_MBEAN_CLIENTREQUEST}.regsub(&quot;name=(\w*),scope=(\w*)&quot;,&quot;\1 \2&quot;)} 99thPercentile</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_CLIENTREQUEST}/99thPercentile&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: ClientRequest</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Cassandra: ClientRequest {{#CASSANDRA_MBEAN_CLIENTREQUEST}.regsub(&quot;name=(\w*),scope=(\w*)&quot;,&quot;\1 \2&quot;)} Mean</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_CLIENTREQUEST}/Mean&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: ClientRequest</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CASSANDRA_MBEAN_CLIENTREQUEST}</lld_macro>
+                            <path>$.mbean</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>var output = [];
+var datas = JSON.parse(value);
+for(var k in datas.value) {
+   var obj = { mbean: k };
+   output.push(obj);
+}
+ 
+// Return JSON string
+return JSON.stringify(output);</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Cassandra: ColumnFamily Count Discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/org.apache.cassandra.metrics:type=ColumnFamily,*/Count&quot;,,,^{.*}$]</key>
+                    <delay>1h</delay>
+                    <filter>
+                        <evaltype>FORMULA</evaltype>
+                        <formula>(A or B or C or D) and E and F</formula>
+                        <conditions>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_COLUMNFAMILY}</macro>
+                                <value>name=CurrentlyBlockedTasks</value>
+                                <formulaid>D</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_COLUMNFAMILY}</macro>
+                                <value>name=TotalBlockedTasks</value>
+                                <formulaid>C</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_COLUMNFAMILY}</macro>
+                                <value>name=TotalDiskSpaceUsed</value>
+                                <formulaid>B</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_COLUMNFAMILY}</macro>
+                                <value>name=SpeculativeRetries</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_COLUMNFAMILY}</macro>
+                                <value>keyspace=system</value>
+                                <operator>NOT_MATCHES_REGEX</operator>
+                                <formulaid>E</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_COLUMNFAMILY}</macro>
+                                <value>keyspace=</value>
+                                <formulaid>F</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Cassandra: ColumnFamily {{#CASSANDRA_MBEAN_COLUMNFAMILY}.regsub(&quot;keyspace=(\w*),name=(\w*),scope=(\w*)&quot;,&quot;\1 \2 \3&quot;)} Count</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_COLUMNFAMILY}/Count&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: ColumnFamily</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CASSANDRA_MBEAN_COLUMNFAMILY}</lld_macro>
+                            <path>$.mbean</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>var output = [];
+var datas = JSON.parse(value);
+for(var k in datas.value) {
+   var obj = { mbean: k };
+   output.push(obj);
+}
+ 
+// Return JSON string
+return JSON.stringify(output);</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Cassandra: ColumnFamily Value Discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/org.apache.cassandra.metrics:type=ColumnFamily,*/Value&quot;,,,^{.*}$]</key>
+                    <delay>1h</delay>
+                    <filter>
+                        <evaltype>FORMULA</evaltype>
+                        <formula>(A or B or C or D or E or F or G or H or I or J or K or L) and M and N</formula>
+                        <conditions>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_COLUMNFAMILY}</macro>
+                                <value>name=BloomFilterDiskSpaceUsed</value>
+                                <formulaid>L</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_COLUMNFAMILY}</macro>
+                                <value>name=BloomFilterFalsePositives</value>
+                                <formulaid>H</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_COLUMNFAMILY}</macro>
+                                <value>name=BloomFilterFalseRatio</value>
+                                <formulaid>I</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_COLUMNFAMILY}</macro>
+                                <value>name=BloomFilterOffHeapMemoryUsed</value>
+                                <formulaid>J</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_COLUMNFAMILY}</macro>
+                                <value>name=LiveSSTableCount</value>
+                                <formulaid>K</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_COLUMNFAMILY}</macro>
+                                <value>name=MemtableColumnsCount</value>
+                                <formulaid>G</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_COLUMNFAMILY}</macro>
+                                <value>name=MemtableLiveDataSize</value>
+                                <formulaid>F</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_COLUMNFAMILY}</macro>
+                                <value>name=MemtableOnHeapSize</value>
+                                <formulaid>B</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_COLUMNFAMILY}</macro>
+                                <value>name=MemtableOffHeapSize</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_COLUMNFAMILY}</macro>
+                                <value>name=RangeLatencyMean</value>
+                                <formulaid>C</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_COLUMNFAMILY}</macro>
+                                <value>name=SnapshotsSize</value>
+                                <formulaid>D</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_COLUMNFAMILY}</macro>
+                                <value>name=RangeLatencyMean</value>
+                                <formulaid>E</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_COLUMNFAMILY}</macro>
+                                <value>keyspace=system</value>
+                                <operator>NOT_MATCHES_REGEX</operator>
+                                <formulaid>M</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_COLUMNFAMILY}</macro>
+                                <value>keyspace=</value>
+                                <formulaid>N</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Cassandra: ColumnFamily {{#CASSANDRA_MBEAN_COLUMNFAMILY}.regsub(&quot;keyspace=(\w*),name=(\w*),scope=(\w*)&quot;,&quot;\1 \2 \3&quot;)} Value</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_COLUMNFAMILY}/Value&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: ColumnFamily</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CASSANDRA_MBEAN_COLUMNFAMILY}</lld_macro>
+                            <path>$.mbean</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>var output = [];
+var datas = JSON.parse(value);
+for(var k in datas.value) {
+   var obj = { mbean: k };
+   output.push(obj);
+}
+ 
+// Return JSON string
+return JSON.stringify(output);</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Cassandra: Compaction Count Discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/org.apache.cassandra.metrics:type=Compaction,*/Count&quot;,,,^{.*}$]</key>
+                    <delay>1h</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Cassandra: Compaction {{#CASSANDRA_MBEAN_COMPACTION}.regsub(&quot;name=(\w*)&quot;,&quot;\1&quot;)} Count</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_COMPACTION}/Count&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: Compaction</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CASSANDRA_MBEAN_COMPACTION}</lld_macro>
+                            <path>$.mbean</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>var output = [];
+var datas = JSON.parse(value);
+for(var k in datas.value) {
+   var obj = { mbean: k };
+   output.push(obj);
+}
+ 
+// Return JSON string
+return JSON.stringify(output);</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Cassandra: Compaction OneMinuteRate Discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/org.apache.cassandra.metrics:type=Compaction,*/OneMinuteRate&quot;,,,^{.*}$]</key>
+                    <delay>1h</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Cassandra: Compaction {{#CASSANDRA_MBEAN_COMPACTION}.regsub(&quot;name=(\w*)&quot;,&quot;\1&quot;)} OneMinuteRate</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_COMPACTION}/OneMinuteRate&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: Compaction</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CASSANDRA_MBEAN_COMPACTION}</lld_macro>
+                            <path>$.mbean</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>var output = [];
+var datas = JSON.parse(value);
+for(var k in datas.value) {
+   var obj = { mbean: k };
+   output.push(obj);
+}
+ 
+// Return JSON string
+return JSON.stringify(output);</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Cassandra: Compaction Value Discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/org.apache.cassandra.metrics:type=Compaction,*/Value&quot;,,,^{.*}$]</key>
+                    <delay>1h</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Cassandra: Compaction {{#CASSANDRA_MBEAN_COMPACTION}.regsub(&quot;name=(\w*)&quot;,&quot;\1&quot;)} Value</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_COMPACTION}/Value&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: Compaction</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CASSANDRA_MBEAN_COMPACTION}</lld_macro>
+                            <path>$.mbean</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>var output = [];
+var datas = JSON.parse(value);
+for(var k in datas.value) {
+   var obj = { mbean: k };
+   output.push(obj);
+}
+ 
+// Return JSON string
+return JSON.stringify(output);</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Cassandra: Connection Count Discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/org.apache.cassandra.metrics:type=Connection,*/Count&quot;,,,^{.*}$]</key>
+                    <delay>1h</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Cassandra: Connection {{#CASSANDRA_MBEAN_CONNECTION}.regsub(&quot;name=(\w*)&quot;,&quot;\1&quot;)} Count</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_CONNECTION}/Count&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: Connection</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CASSANDRA_MBEAN_CONNECTION}</lld_macro>
+                            <path>$.mbean</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>var output = [];
+var datas = JSON.parse(value);
+for(var k in datas.value) {
+   var obj = { mbean: k };
+   output.push(obj);
+}
+ 
+// Return JSON string
+return JSON.stringify(output);</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Cassandra: CQL Count Discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/org.apache.cassandra.metrics:type=CQL,*/Count&quot;,,,^{.*}$]</key>
+                    <delay>1h</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Cassandra: CQL {{#CASSANDRA_MBEAN_CQL}.regsub(&quot;name=(\w*)&quot;,&quot;\1&quot;)} Count</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_CQL}/Count&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: CQL</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CASSANDRA_MBEAN_CQL}</lld_macro>
+                            <path>$.mbean</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>var output = [];
+var datas = JSON.parse(value);
+for(var k in datas.value) {
+   var obj = { mbean: k };
+   output.push(obj);
+}
+ 
+// Return JSON string
+return JSON.stringify(output);</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Cassandra: DroppedMessage Discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/org.apache.cassandra.metrics:type=DroppedMessage,name=Dropped,*&quot;,,,^{.*}$]</key>
+                    <delay>1h</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Cassandra: DroppedMessage {{#CASSANDRA_MBEAN_DROPPEDMESSAGE}.regsub(&quot;name=(\w*),scope=(\w*)&quot;,&quot;\1 \2&quot;)} Count</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_DROPPEDMESSAGE}/Count&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: DroppedMessage</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CASSANDRA_MBEAN_DROPPEDMESSAGE}</lld_macro>
+                            <path>$.mbean</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>var output = [];
+var datas = JSON.parse(value);
+for(var k in datas.value) {
+   var obj = { mbean: k };
+   output.push(obj);
+}
+ 
+// Return JSON string
+return JSON.stringify(output);</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Cassandra: Keyspace Count Discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/org.apache.cassandra.metrics:type=Keyspace,*/Count&quot;,,,^{.*}$]</key>
+                    <delay>1h</delay>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_KEYSPACE}</macro>
+                                <value>keyspace=system</value>
+                                <operator>NOT_MATCHES_REGEX</operator>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Cassandra: Keyspace {{#CASSANDRA_MBEAN_KEYSPACE}.regsub(&quot;keyspace=(\w*),name=(\w*)&quot;,&quot;\1 \2&quot;)} Count</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_KEYSPACE}/Count&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: Keyspace</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CASSANDRA_MBEAN_KEYSPACE}</lld_macro>
+                            <path>$.mbean</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>var output = [];
+var datas = JSON.parse(value);
+for(var k in datas.value) {
+   var obj = { mbean: k };
+   output.push(obj);
+}
+ 
+// Return JSON string
+return JSON.stringify(output);</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Cassandra: Keyspace Value Discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/org.apache.cassandra.metrics:type=Keyspace,*/Value&quot;,,,^{.*}$]</key>
+                    <delay>1h</delay>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#CASSANDRA_MBEAN_KEYSPACE}</macro>
+                                <value>keyspace=system</value>
+                                <operator>NOT_MATCHES_REGEX</operator>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Cassandra: Keyspace {{#CASSANDRA_MBEAN_KEYSPACE}.regsub(&quot;keyspace=(\w*),name=(\w*)&quot;,&quot;\1 \2&quot;)} Value</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_KEYSPACE}/Value&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: Keyspace</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CASSANDRA_MBEAN_KEYSPACE}</lld_macro>
+                            <path>$.mbean</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>var output = [];
+var datas = JSON.parse(value);
+for(var k in datas.value) {
+   var obj = { mbean: k };
+   output.push(obj);
+}
+ 
+// Return JSON string
+return JSON.stringify(output);</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Cassandra: ReadRepair Discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/org.apache.cassandra.metrics:type=ReadRepair,*&quot;,,,^{.*}$]</key>
+                    <delay>1h</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Cassandra: ReadRepair {{#CASSANDRA_MBEAN_READREPAIR}.regsub(&quot;name=(\w*)&quot;,&quot;\1&quot;)} Count</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_READREPAIR}/Count&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: ReadRepair</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CASSANDRA_MBEAN_READREPAIR}</lld_macro>
+                            <path>$.mbean</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>var output = [];
+var datas = JSON.parse(value);
+for(var k in datas.value) {
+   var obj = { mbean: k };
+   output.push(obj);
+}
+ 
+// Return JSON string
+return JSON.stringify(output);</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Cassandra: Storage Discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/org.apache.cassandra.metrics:type=Storage,*&quot;,,,^{.*}$]</key>
+                    <delay>1h</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Cassandra: Storage {{#CASSANDRA_MBEAN_STORAGE}.regsub(&quot;name=(\w*)&quot;,&quot;\1&quot;)} Count</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_STORAGE}/Count&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: Storage</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CASSANDRA_MBEAN_STORAGE}</lld_macro>
+                            <path>$.mbean</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>var output = [];
+var datas = JSON.parse(value);
+for(var k in datas.value) {
+   var obj = { mbean: k };
+   output.push(obj);
+}
+ 
+// Return JSON string
+return JSON.stringify(output);</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Cassandra: ThreadPools Count Discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/org.apache.cassandra.metrics:type=ThreadPools,*/Count&quot;,,,^{.*}$]</key>
+                    <delay>1h</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Cassandra: ThreadPools {{#CASSANDRA_MBEAN_THREADPOOLS}.regsub(&quot;name=(\w*),path=(\w*),scope=(\w*)&quot;,&quot;\1 \2 \3&quot;)} Count</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_THREADPOOLS}/Count&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: ThreadPools</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CASSANDRA_MBEAN_THREADPOOLS}</lld_macro>
+                            <path>$.mbean</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>var output = [];
+var datas = JSON.parse(value);
+for(var k in datas.value) {
+   var obj = { mbean: k };
+   output.push(obj);
+}
+ 
+// Return JSON string
+return JSON.stringify(output);</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Cassandra: ThreadPools Value Discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/org.apache.cassandra.metrics:type=ThreadPools,*/Value&quot;,,,^{.*}$]</key>
+                    <delay>1h</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Cassandra: ThreadPools {{#CASSANDRA_MBEAN_THREADPOOLS}.regsub(&quot;name=(\w*),path=(\w*),scope=(\w*)&quot;,&quot;\1 \2 \3&quot;)} Value</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/{#CASSANDRA_MBEAN_THREADPOOLS}/Value&quot;,,,^{.*}$]</key>
+                            <delay>5m</delay>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: ThreadPools</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$.value</params>
+                                </step>
+                            </preprocessing>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CASSANDRA_MBEAN_THREADPOOLS}</lld_macro>
+                            <path>$.mbean</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>var output = [];
+var datas = JSON.parse(value);
+for(var k in datas.value) {
+   var obj = { mbean: k };
+   output.push(obj);
+}
+ 
+// Return JSON string
+return JSON.stringify(output);</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Cassandra: FailureDetector Discovery</name>
+                    <type>ZABBIX_ACTIVE</type>
+                    <key>web.page.regexp[&quot;http://localhost:{$CASSANDRA_JOLOKIA_PORT}/jolokia/read/org.apache.cassandra.net:type=FailureDetector/PhiValues&quot;,,,^{.*}$]</key>
+                    <delay>1h</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Cassandra: FailureDetector {#CASSANDRA_MBEAN_FAILUREDETECTOR} PHI</name>
+                            <type>ZABBIX_ACTIVE</type>
+                            <key>web.page.regexp[&quot;http://localhost:8888/jolokia/read/org.apache.cassandra.net:type=FailureDetector/PhiValues&quot;,,,{#CASSANDRA_MBEAN_FAILUREDETECTOR}\&quot;:\{\&quot;PHI\&quot;:(\d*.\d*),,\1]</key>
+                            <delay>5m</delay>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Cassandra: FailureDetector</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;={$CASSANDRA_PHIVALUE_DISASTER}</expression>
+                                    <name>Cassandra: PhiValue {#CASSANDRA_MBEAN_FAILUREDETECTOR} is too high</name>
+                                    <priority>DISASTER</priority>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;={$CASSANDRA_PHIVALUE_HIGH}</expression>
+                                    <name>Cassandra: PhiValue {#CASSANDRA_MBEAN_FAILUREDETECTOR} is too high</name>
+                                    <priority>HIGH</priority>
+                                    <dependencies>
+                                        <dependency>
+                                            <name>Cassandra: PhiValue {#CASSANDRA_MBEAN_FAILUREDETECTOR} is too high</name>
+                                            <expression>{Cassandra:web.page.regexp[&quot;http://localhost:8888/jolokia/read/org.apache.cassandra.net:type=FailureDetector/PhiValues&quot;,,,{#CASSANDRA_MBEAN_FAILUREDETECTOR}\&quot;:\{\&quot;PHI\&quot;:(\d*.\d*),,\1].last()}&gt;={$CASSANDRA_PHIVALUE_DISASTER}</expression>
+                                        </dependency>
+                                    </dependencies>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <lld_macro_paths>
+                        <lld_macro_path>
+                            <lld_macro>{#CASSANDRA_MBEAN_FAILUREDETECTOR}</lld_macro>
+                            <path>$.mbean</path>
+                        </lld_macro_path>
+                    </lld_macro_paths>
+                    <preprocessing>
+                        <step>
+                            <type>JAVASCRIPT</type>
+                            <params>var output = [];
+var datas = JSON.parse(value);
+for(var k in datas.value) {
+   var obj = { mbean: k };
+   output.push(obj);
+}
+ 
+// Return JSON string
+return JSON.stringify(output);</params>
+                        </step>
+                    </preprocessing>
+                </discovery_rule>
+            </discovery_rules>
+            <macros>
+                <macro>
+                    <macro>{$CASSANDRA_JOLOKIA_PORT}</macro>
+                    <value>8888</value>
+                </macro>
+                <macro>
+                    <macro>{$CASSANDRA_PHIVALUE_DISASTER}</macro>
+                    <value>50</value>
+                </macro>
+                <macro>
+                    <macro>{$CASSANDRA_PHIVALUE_HIGH}</macro>
+                    <value>20</value>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+</zabbix_export>
